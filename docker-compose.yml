@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    container_name: auction_web
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/var/www/html
+      - ./docker/apache/apache.conf:/etc/apache2/sites-available/000-default.conf
+    environment:
+      - APACHE_DOCUMENT_ROOT=/var/www/html
+    networks:
+      - auction_network
+
+networks:
+  auction_network:
+    driver: bridge
